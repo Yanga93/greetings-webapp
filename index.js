@@ -1,6 +1,19 @@
-var express = require('express');
-var app = express();
-var greeted = [];
+const express = require('express');
+const path = require('path');
+const bodyParser = require('body-parser');
+const exphbs  = require('express-handlebars');
+const app = express();
+const greeted = [];
+
+//Set middleware for bodyParser and the second line writebmiddleware documantation for bodyParser
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended.false}));
+
+//Set Static path
+app.use(express.static(path.join(__dirname, 'public')));
+
+//register a Handlebars view engine
+
 
 // create a route for greet
 app.get('/greetings/:name', function(req, res){
@@ -32,7 +45,7 @@ app.get('/counter/:username', function(req, res){
     // Hello, <USER_NAME> has been greeted <COUNTER> times
 });
 
-//start the server
+//start the server at port 3000
 var index = app.listen(3000, function () {
 
 });
