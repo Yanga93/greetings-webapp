@@ -5,22 +5,30 @@ const exphbs  = require('express-handlebars');
 const app = express();
 const greeted = [];
 
-//Set middleware for bodyParser and the second line writebmiddleware documantation for bodyParser
+//Set middleware for bodyParser and the second line write middleware documantation for bodyParser
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended.false}));
-
-//Set Static path
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({extended:false}));
 
 //register a Handlebars view engine
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
 
 // create a route for greet
 app.get('/greetings/:name', function(req, res){
-
-  res.send("Hello, " + req.params.name);
+res.send("Hello, " + req.params.name);
   greeted.push(req.params.name);
 });
+
+//Set Static path
+app.use(express.static('public'));
+
+
+// create a route that sends data to the browser
+app.get('/', function (req, resp) {
+  resp.sendFile('index.html', {root:path.join(__dirname, 'files')});
+})
+
 
 // create a route for greeted names
 app.get('/greeted', function(req, res){
