@@ -19,11 +19,11 @@ app.set('view engine', 'handlebars');
 
 
 //create a route for text box to reeturn name greeeted
-app.get('/', function(req, res) {
+app.get('/greetings', function(req, res) {
   res.render("index");
 })
 
-app.post("/add_greeting", function(req, res) {
+app.post("/greetings", function(req, res) {
   var text = req.body.client;
   console.log(text);
   res.render("index", {
@@ -32,10 +32,10 @@ app.post("/add_greeting", function(req, res) {
 });
 
 // create a route for greet
-app.get('/greetings/:name', function(req, res){
-res.send("Hello, " + req.params.name);
-  greeted.push(req.params.name);
-});
+// app.get('/greetings/:name', function(req, res){
+// res.send("Hello, " + req.params.name);
+//   greeted.push(req.params.name);
+// });
 
 //Set Static path
 app.use(express.static('public'));
