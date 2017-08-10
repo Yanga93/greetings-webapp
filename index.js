@@ -23,49 +23,65 @@ app.get('/greetings', function(req, res) {
   res.render("index");
 })
 
+
 app.post("/greetings", function(req, res) {
-  var text = req.body.client;
-  console.log(text);
-  res.render("index", {
-    greeted: 'Hello ' + text + "!"
-  })
+      var name = req.body.name;
+      var language = req.body.language;
+
+      function getMessage(theName, theLanguage) {
+          if (language === "English") {
+            return "Hello, " + name + "!"
+          }else if (language === "IsiXhosa") {
+            return "Molo, " + name + "!"
+          }else if (language === "Setswana") {
+            return "Dumela, " + name + "!"
+          }else {
+
+            return "Language not selected."
+          }
+      }
+      var message = getMessage(name, language);
+
+      res.render("index", {
+        message: message
+      })
 });
 
-// create a route for greet
-// app.get('/greetings/:name', function(req, res){
-// res.send("Hello, " + req.params.name);
-//   greeted.push(req.params.name);
-// });
+      // create a route for greet
+      app.get('/greetings/:name', function(req, res) {
+        res.send("Hello, " + req.params.name);
+        greeted.push(req.params.name);
+      });
 
-//Set Static path
-app.use(express.static('public'));
+      //Set Static path
+      app.use(express.static('public'));
 
 
-// create a route for greeted names
-app.get('/greeted', function(req, res){
-  res.send(greeted);
-});
+      // create a route for greeted names
+      app.get('/greeted', function(req, res) {
+        res.send(greeted);
+      });
 
-// create a route for counter
-app.get('/counter/:username', function(req, res) {
-  var namesMap = {};
-  var timesGreeted = 0;
-  for (var i = 0; i < greeted.length; i++) {
-    var namesGreeted = greeted[i];
-    if (namesMap[namesGreeted] !== undefined) {
-      var increment = namesMap[namesGreeted] ? namesMap[namesGreeted] + 1 : 1;
-      namesMap[namesGreeted] = increment;
-      timesGreeted = namesMap[namesGreeted];
-    } else {
-      namesMap[namesGreeted] = 1;
-    }
-  }
-  // Hello, <USER_NAME> has been greeted <COUNTER> times
-  res.send("Hello, " + req.params.username + " has been greeted " + timesGreeted + " times.");
-});
+      // create a route for counter
+      app.get('/counter/:username', function(req, res) {
+        var namesMap = {};
+        var timesGreeted = 0;
+        for (var i = 0; i < greeted.length; i++) {
+          var namesGreeted = greeted[i];
+          if (namesMap[namesGreeted] !== undefined) {
+            var increment = namesMap[namesGreeted] ? namesMap[namesGreeted] + 1 : 1;
+            namesMap[namesGreeted] = increment;
+            timesGreeted = namesMap[namesGreeted];
+          } else {
+            namesMap[namesGreeted] = 1;
+          }
+        }
+        // Hello, <USER_NAME> has been greeted <COUNTER> times
+        res.send("Hello, " + req.params.username + " has been greeted " + timesGreeted + " times.");
+      });
 
-//start the server at port 3000
-var index = app.listen(3000, function() {
-  console.log("Server starting at port: 3000");
+      //start the server at port 3000
+      var index = app.listen(3000, function() {
+        console.log("Server starting at port: 3000");
 
-});
+      });
