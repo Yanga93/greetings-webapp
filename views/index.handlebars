@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Greetings Web-App</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+  <h1>Greetings Web-App</h1>
+  <div class="container">
+    <form action="/add_greeting" method="POST">
+      <label>Name: <input type="text" name="client" placeholder=" enter name" ></label>
+      <div class="radioButt">
+        <br><input type="radio" name="language" value="IsiXhosa">IsiXhosa
+        <input type="radio" name="language" value="English">English
+        <input type="radio" name="language" value="Setswana">Setswana
+      </div>
+      <br><input type="submit">
+    </form>
+  </div>
+    <div class="output"> {{greeted}} </div>
+</body>
+
+</html>

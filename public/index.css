@@ -1,7 +1,16 @@
 h1{
   text-align: center;
+    margin-top: 3em;
+    margin-bottom: 42px;
 }
 
 body{
   background-color: gray;
+}
+.container{
+  text-align: center;
+}
+.output{
+  text-align: center;
+    margin-top: 1em;
 }
