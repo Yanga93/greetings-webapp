@@ -24,22 +24,22 @@ app.get('/greetings', function(req, res) {
 })
 
 
+function getMessage(theName, theLanguage) {
+  if (theLanguage === "English") {
+    return "Hello, " + theName + "!"
+  }else if (theLanguage === "IsiXhosa") {
+    return "Molo, " + theName + "!"
+  }else if (theLanguage === "Setswana") {
+    return "Dumela, " + theName + "!"
+  }else {
+    return "Language not selected."
+  }
+}
+
 app.post("/greetings", function(req, res) {
       var name = req.body.name;
       var language = req.body.language;
 
-      function getMessage(theName, theLanguage) {
-          if (language === "English") {
-            return "Hello, " + name + "!"
-          }else if (language === "IsiXhosa") {
-            return "Molo, " + name + "!"
-          }else if (language === "Setswana") {
-            return "Dumela, " + name + "!"
-          }else {
-
-            return "Language not selected."
-          }
-      }
       var message = getMessage(name, language);
 
       res.render("index", {
