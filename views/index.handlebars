@@ -8,20 +8,24 @@
 </head>
 
 <body>
-  <h1>Greetings Web-App</h1>
-  <div class="container">
-    <form action="/greetings" method="POST">
-      <label>Name: <input type="text" name="name" placeholder=" enter name" ></label>
-      <div class="radioButt">
-        <br><input type="radio" name="language" value="IsiXhosa">IsiXhosa
-        <input type="radio" name="language" value="English">English
-        <input type="radio" name="language" value="Setswana">Setswana
-      </div>
-      <br><input type="submit">
-    </form>
-  </div>
-    <div class="output"> {{message}} </div>
-    <div class="counter">{{counter}}</div>
+  <fieldset class="fieldContainer">
+    <legend class="legend">
+      <h1>Greetings Web-App</h1>
+    </legend>
+    <div class="container">
+      <form action="/greetings" method="POST" class="form" style="font-size: xx-large; margin-top: 1em;">
+        <label>Name: <input type="text" name="name" placeholder="Please enter name" ></label>
+        <div class="radioButt">
+          <br><input type="radio" name="language" value="IsiXhosa">IsiXhosa
+          <input type="radio" name="language" value="English">English
+          <input type="radio" name="language" value="Setswana">Setswana
+        </div>
+        <br><input type="submit">
+      </form>
+    </div>
+    <div class="output" style="font-size: xx-large"> {{message}} </div>
+    <div class="counter" style="font-size: xx-large">{{counter}}</div>
+  </fieldset>
 </body>
 
 </html>
