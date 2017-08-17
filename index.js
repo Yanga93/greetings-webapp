@@ -21,7 +21,7 @@ app.set('view engine', 'handlebars');
 
 
 //create a route for text box to reeturn name greeeted
-app.get('/greetings', function(req, res) {
+app.get('/', function(req, res) {
   res.render("index");
 })
 
