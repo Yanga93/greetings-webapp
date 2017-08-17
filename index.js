@@ -106,7 +106,9 @@ app.get('/counter/:username', function(req, res) {
 });
 
 //start the server at port 3000
-var index = app.listen(3000, function() {
-  console.log("Server started at port: 3000");
+var port = process.env.PORT || 3000;
+
+var index = app.listen(port, function() {
+  console.log("Server started at port" + port);
 
 });
