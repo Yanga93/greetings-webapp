@@ -5,3 +5,6 @@ h1{
 body{
   background-color: gray;
 }
+.radioButt{
+  display: inline-block;
+}

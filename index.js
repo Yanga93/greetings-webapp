@@ -13,6 +13,9 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
+//Set Static path
+app.use(express.static('public'));
+
 
 // create a route for greet
 app.get('/greetings/:name', function(req, res){
@@ -20,20 +23,18 @@ res.send("Hello, " + req.params.name);
   greeted.push(req.params.name);
 });
 
-//Set Static path
-app.use(express.static('public'));
-
-
-// create a route that sends data to the browser
-app.get('/', function (req, resp) {
-  resp.sendFile('index.html', {root:path.join(__dirname, 'files')});
-})
-
-
 // create a route for greeted names
 app.get('/greeted', function(req, res){
   res.send(greeted);
 });
+
+
+// create a route that sends data to the browser
+app.get('/greetings', function (req, resp) {
+  resp.sendFile('index', {root:path.join(__dirname, 'views')});
+})
+
+
 
 // create a route for counter
 app.get('/counter/:username', function(req, res){
@@ -41,6 +42,7 @@ app.get('/counter/:username', function(req, res){
   var timesGreeted = 0;
     for (var i = 0; i < greeted.length; i++) {
       var namesGreeted = greeted[i];
+
       if(namesMap[namesGreeted] !== undefined) {
         var increment = namesMap[namesGreeted] ? namesMap[namesGreeted] + 1:1;
         namesMap[namesGreeted] = increment;
@@ -55,5 +57,6 @@ app.get('/counter/:username', function(req, res){
 
 //start the server at port 3000
 var index = app.listen(3000, function () {
+  console.log('Server start at port: 3000');
 
 });
