@@ -26,7 +26,7 @@
       <nav>
         <ul class="nav nav-pills float-right">
           <li class="nav-item">
-            <a class="nav-link active">Greeted Clients <span class="sr-only">(current)</span></a>
+            <button class="btn btn-lg btn-success" role="button">Greeted Clients</button>
           </li>
         </ul>
       </nav>
@@ -42,16 +42,16 @@
           <input type="radio" name="language" value="English">English
           <input type="radio" name="language" value="Setswana">Setswana
           <br><br>
-          <button type="button" class="btn-primary btn-sm" name="button">Submit</button>
+          <button class="btn btn-lg btn-success" role="button">Submit</button>
+          <button class="btn btn-lg btn-success" role="button">Reset</button>
         </div>
     </div>
-    <!-- <p><a class="btn btn-lg btn-success" role="button">Submit</a></p>
-    <p><a class="btn btn-lg btn-success" role="button">Reset</a></p> -->
+
   </div>
   </form>
 
-  <div class="output" style="font-size: xx-large"> {{message}} </div>
-  <div class="counter" style="font-size: xx-large">{{counter}}</div>
+  <div class="output" style="font-size: xx-large; text-align: center;"> {{message}} </div>
+  <div class="counter" style="font-size: xx-large; text-align: center;">{{counter}}</div>
 
   <footer class="footer">
     <p> &copy; Greeting-Webapp: 2017</p>
