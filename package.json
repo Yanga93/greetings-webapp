@@ -18,12 +18,9 @@
   "homepage": "https://github.com/Yanga93/greetings-webapp#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
-<<<<<<< HEAD
-    "express": "^4.15.4",
-=======
+    "express-handlebars":"*",
     "express": "^4.15.3",
     "mongoose": "^4.11.7",
->>>>>>> 472329beee8c7662eb14f26dfb33d1f835c11d10
     "nodemon": "^1.11.0"
   },
   "devDependencies": {

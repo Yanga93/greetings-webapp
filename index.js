@@ -7,6 +7,7 @@ const app = express();
 var greeted = [];
 var namesMap = {};
 var counter = 0;
+var models = require("./models")
 
 //Set middleware for bodyParser and the second line write middleware documantation for bodyParser
 app.use(bodyParser.json());
@@ -72,6 +73,22 @@ app.post("/greetings", function(req, res) {
     message: message
   })
 });
+
+function saveName(name, cb) {
+  var person = new person({
+    name: name
+  });
+  person.save(function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log('database is created');
+    }
+  });
+
+  saveName(name, cb);
+
+}
 
 // create a route for greet
 app.get('/greetings/:name', function(req, res) {
