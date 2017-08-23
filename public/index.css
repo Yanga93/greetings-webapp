@@ -8,10 +8,10 @@ h1{
 body{
   background-color: gray;
 }
-<<<<<<< HEAD
+
 .radioButt{
   display: inline-block;
-=======
+}
 .container{
   text-align: center;
 }
@@ -36,5 +36,4 @@ body{
     }
 .legend{
   text-align: center;
->>>>>>> 472329beee8c7662eb14f26dfb33d1f835c11d10
 }
