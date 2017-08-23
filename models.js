@@ -7,7 +7,7 @@ module.exports = function(mongoUrl) {
     counter: Number
 
   });
-  
+
   return {
       Person
   };

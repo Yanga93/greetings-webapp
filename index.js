@@ -4,10 +4,20 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const app = express();
-var greeted = [];
-var namesMap = {};
-var counter = 0;
-var models = require("./models")
+
+/**
+* @todo - remove these as you are using mongodb
+*/
+const greeted = [];
+const namesMap = {};
+
+/**
+  @todo - you should start using the database for your counter - the counter variable should be removed
+*/
+const counter = 0;
+
+const Models = require("./models")
+const models = Models("mongodb://localhost/greet-me");
 
 //Set middleware for bodyParser and the second line write middleware documantation for bodyParser
 app.use(bodyParser.json());
@@ -26,6 +36,8 @@ app.set('view engine', 'handlebars');
 app.get('/', function(req, res) {
   res.render("index");
 })
+
+
 
 /**
 This function takes in theName && theLanguage as param and return greet messgein that language,
@@ -65,28 +77,36 @@ app.post("/greetings", function(req, res) {
   var name = req.body.name;
   var language = req.body.language;
 
-  manageCounter(name);
-  var message = getLanguage(language) + getName(name);
+  saveName(name, function(err){
 
-  res.render("index", {
-    counter: counter,
-    message: message
-  })
+    manageCounter(name);
+    var message = getLanguage(language) + getName(name);
+
+    res.render("index", {
+      counter: counter,
+      message: message
+    });
+
+  });
+
 });
 
-function saveName(name, cb) {
-  var person = new person({
-    name: name
-  });
-  person.save(function(err) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('database is created');
-    }
-  });
 
-  saveName(name, cb);
+
+/**
+  @todo - how not to add duplicate names and to increment the counter for an already existing username
+  * check if there is a person for that name - using a findOne query
+  * if there is not a person already add the new user using .save
+  * otherwise use the person object returned - increment it's counter and then save using .save()
+*/
+function saveName(name, cb) {
+  var person = new models.Person({
+    name: name,
+    counter : 1
+  });
+  person.save(cb);
+
+  //saveName(name, cb);
 
 }
 
@@ -100,9 +120,13 @@ app.get('/greetings/:name', function(req, res) {
 app.use(express.static('public'));
 
 
-// create a route for greeted names
+// create a route for greeted clients
 app.get('/greeted', function(req, res) {
-  res.send(greeted);
+
+  models.Person.find({}, function(err, people){
+    res.render("clients", {people : people});
+  })
+
 });
 
 // create a route for counter
