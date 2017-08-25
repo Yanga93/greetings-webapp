@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const exphbs = require('express-handlebars');
 const app = express();
 
+
 /**
 * @todo - remove these as you are using mongodb
 */
@@ -14,10 +15,13 @@ const namesMap = {};
 /**
   @todo - you should start using the database for your counter - the counter variable should be removed
 */
-const counter = 0;
+var counter = 0;
 
 const Models = require("./models")
 const models = Models("mongodb://localhost/greet-me");
+
+const manageG = require('./manage-greetings');
+const route = manageG(models);
 
 //Set middleware for bodyParser and the second line write middleware documantation for bodyParser
 app.use(bodyParser.json());
@@ -36,6 +40,8 @@ app.set('view engine', 'handlebars');
 app.get('/', function(req, res) {
   res.render("index");
 })
+
+app.post('/', route.manageGreetings)
 
 
 
@@ -93,12 +99,7 @@ app.post("/greetings", function(req, res) {
 
 
 
-/**
-  @todo - how not to add duplicate names and to increment the counter for an already existing username
-  * check if there is a person for that name - using a findOne query
-  * if there is not a person already add the new user using .save
-  * otherwise use the person object returned - increment it's counter and then save using .save()
-*/
+
 function saveName(name, cb) {
   var person = new models.Person({
     name: name,
@@ -109,6 +110,8 @@ function saveName(name, cb) {
   //saveName(name, cb);
 
 }
+
+
 
 // create a route for greet
 app.get('/greetings/:name', function(req, res) {

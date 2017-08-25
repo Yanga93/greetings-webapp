@@ -44,8 +44,8 @@ body {
 /* Main marketing message and sign up button */
 .jumbotron {
   text-align: center;
-  border-bottom: .05rem solid #e5e5e5;
-  background-color: rgba(0, 188, 212, 0.14);
+  /*border-bottom: .05rem solid #e5e5e5;*/
+  background-color: #6b9c6d;
 }
 .jumbotron .btn {
   padding: .75rem 1.5rem;
