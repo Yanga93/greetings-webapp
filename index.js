@@ -5,11 +5,13 @@ const path = require('path');
 const app = express();
 
 const SaveName = require('./save-name');
+const counterNames = require('./times-greeted');
 
 const Models = require("./models")
 const models = Models("mongodb://localhost/greet-me");
-const saveName = SaveName(models);
 
+const saveName = SaveName(models);
+// const timesGreeted = timesGreeted(models);
 
 //Set middleware for bodyParser and the second line write middleware documantation for bodyParser
 app.use(bodyParser.json());
@@ -18,11 +20,15 @@ app.use(bodyParser.urlencoded({
 }));
 
 //register a Handlebars view engine
-app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.engine('handlebars', exphbs({
+  defaultLayout: 'main'
+}));
 app.set('view engine', 'handlebars');
 
+//Set Static path
+app.use(express.static('public'));
 
-//create a route for text box to reeturn name greeeted
+//create a route for the home page
 app.get('/', function(req, res) {
   res.render("index");
 })
@@ -50,13 +56,13 @@ app.post("/greetings", function(req, res) {
 
   saveName(name, function(err) {
 
-    models.Person.count({}, function (err, counter) {
+    models.Person.count({}, function(err, counter) {
 
-        var message = getLanguage(language) + name;
-        res.render("index", {
-            counter: counter,
-            message: message
-        });
+      var message = getLanguage(language) + name;
+      res.render("index", {
+        counter: counter,
+        message: message
+      });
 
     });
 
@@ -65,44 +71,37 @@ app.post("/greetings", function(req, res) {
 });
 
 
-// create a route for greet
-app.get('/greetings/:name', function(req, res) {
-  res.send("Hello, " + req.params.name);
-  greeted.push(req.params.name);
-});
-
-//Set Static path
-app.use(express.static('public'));
-
 
 // create a route for greeted clients
 app.get('/greeted', function(req, res) {
 
-  models.Person.find({}, function(err, people) {
+  models.Person.find({}, function(err, showNames) {
     res.render("clients", {
-      people: people
+      people: showNames
     });
   })
 
 });
 
-// create a route for counter
-app.get('/counter/:username', function(req, res) {
-  var namesMap = {};
-  var timesGreeted = 0;
-  for (var i = 0; i < greeted.length; i++) {
-    var namesGreeted = greeted[i];
-    if (namesMap[namesGreeted] !== undefined) {
-      var increment = namesMap[namesGreeted] ? namesMap[namesGreeted] + 1 : 1;
-      namesMap[namesGreeted] = increment;
-      timesGreeted = namesMap[namesGreeted];
-    } else {
-      namesMap[namesGreeted] = 1;
-    }
-  }
+//create a route to display how many times a client has been greeted
+app.get('/counter/:name', function(req, res) {
+  // Hello, <USER_NAME> has been greeted <COUNTER> time(s).
+  var message = "Hello, " + req.param.name + " has been greeted " + count.count + " time(s).";
+  models.Person.findOne({}, function(err, message) {
 
-  // Hello, <USER_NAME> has been greeted <COUNTER> times
-  res.send("Hello, " + req.params.username + " has been greeted " + timesGreeted + " times.");
+    people: message
+  })
+});
+
+//create a route function that will remove all the data from the database- models
+app.get('/reset', function(req, res) {
+  models.Person.remove({}, function(err, cb) {
+    if (err) {
+      throw (err);
+    } else {
+      return res.render("clients.handlebars");
+    }
+  })
 });
 
 //start the server at port 3000
