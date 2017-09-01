@@ -8,7 +8,7 @@ const SaveName = require('./save-name');
 const counterNames = require('./times-greeted');
 
 const Models = require("./models")
-const models = Models("mongodb://localhost/greet-me");
+// const models = Models("mongodb://localhost/greet-me");
 
 const saveName = SaveName(models);
 // const timesGreeted = timesGreeted(models);
