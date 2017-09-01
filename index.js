@@ -8,7 +8,7 @@ const SaveName = require('./save-name');
 const counterNames = require('./times-greeted');
 
 const Models = require("./models")
-// const models = Models("mongodb://localhost/greet-me");
+const models = Models("mongodb://localhost/greet-me");
 
 const saveName = SaveName(models);
 // const timesGreeted = timesGreeted(models);
@@ -88,7 +88,6 @@ app.get('/counter/:name', function(req, res) {
   // Hello, <USER_NAME> has been greeted <COUNTER> time(s).
   var message = "Hello, " + req.param.name + " has been greeted " + count.count + " time(s).";
   models.Person.findOne({}, function(err, message) {
-
     people: message
   })
 });
