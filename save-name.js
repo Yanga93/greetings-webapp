@@ -9,16 +9,16 @@
 module.exports = function(models){
 
 
-  function saveName(name, cb) {
+  function saveName(username, cb) {
 
     models.Person.findOne({
-      name: name
+      name: username
     }, function(err, thePerson) {
-      console.log(thePerson);
+      // console.log(thePerson);
       if (!thePerson) {
 
         models.Person.create({
-          name: name,
+          name: username,
           counter: 1
         }, cb)
       } else {
