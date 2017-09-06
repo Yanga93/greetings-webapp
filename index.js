@@ -4,12 +4,12 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-const SaveName = require('./save-name');
-const counterNames = require('./times-greeted');
+const DatabaseService = require('./save-counter');
 
 const Models = require("./models")
 const models = Models("mongodb://localhost:27017/greet-me");
 
+const databaseService = new DatabaseService(models);
 
 //Set middleware for bodyParser and the second line write middleware documantation for bodyParser
 app.use(bodyParser.json());
@@ -49,17 +49,17 @@ function getLanguage(language) {
 
 
 app.post("/greetings", function(req, res) {
-  const saveName = SaveName(models);
+  // const saveName = SaveName(models);
   var username = req.body.name;
   var language = req.body.language;
 
-  saveName(username, function(err) {
+  databaseService.saveName(username, function(err) {
 
     models.Person.count({}, function(err, counter) {
 
       var message = getLanguage(language) + username;
       res.render("index", {
-          counter: counter,
+        counter: counter,
         message: message
       });
 
@@ -85,15 +85,13 @@ app.get('/greeted', function(req, res) {
 //create a route to display how many times a client has been greeted
 app.get('/counter/:name', function(req, res) {
   var username = req.params.name;
-  const saveName = SaveName(models);
-  // got to the data to find the user in question
+  databaseService.getCounter(username, function(err, counter) {
+    res.render('client-counter', {
+      username,
+      counter
+    });
 
-  // then get the greet count for the user from the database entry and put it on the screen...
-
-  var messages = "Hello, " + username + " you have been greeted " + username.counter + " time(s).";
-  //console.log(counter);
-  res.render('each-client-counter', {display: messages});
-
+  });
 });
 
 //create a route function that will remove all the data from the database- models

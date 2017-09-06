@@ -10,25 +10,36 @@
   <title>Greetings-Webapp</title>
 
 
-  <link href="bootstrap.min.css" rel="stylesheet">
-
-
-  <link href="narrow-jumbotron.css" rel="stylesheet">
+  <link href="/bootstrap.min.css" rel="stylesheet">
+  <link href="/narrow-jumbotron.css" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="signin.css" rel="stylesheet">
+  <link href="/signin.css" rel="stylesheet">
 </head>
 
 <body>
 
   <div class="container">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills float-right">
+          <li class="nav-item">
+            <a href="/"><button class="btn btn-lg btn-success" role="button">Home</button></a>
+            <a href="/greeted"><button class="btn btn-lg btn-success" role="button">Greeted Clients</button></a>
+            <a href="/reset"><button class="btn btn-lg btn-success" role="button">Reset</button></a>
+          </li>
+        </ul>
+      </nav>
+      <h3 class="text-muted">Greetings Web-App</h3>
+    </div>
 
     {{{body}}}
 
   </div>
   </form>
 
-  <div class="output" style="font-size: xx-large; text-align: center;"> {{message}} </div>
+  <div class="output" style="font-size: xx-large; text-align: center;">
+  </div>
   <div class="counter" style="font-size: xx-large; text-align: center;">{{counter}}</div>
 
   <footer class="footer">
@@ -37,7 +48,6 @@
 
   </div>
 
-  <script src="ie10-viewport-bug-workaround.js"></script>
 </body>
 
 </html>
