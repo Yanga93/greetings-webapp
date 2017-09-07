@@ -108,6 +108,6 @@ app.get('/reset', function(req, res) {
 //start the server at port 3000
 var port = process.env.PORT || 3001;
 
-var index = app.listen(port, function() {
+app.listen(port, function() {
   console.log("Server started at port" + " " + port);
 });
