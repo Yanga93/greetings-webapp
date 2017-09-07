@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 module.exports = function(mongoUrl) {
-  mongoose.connect(mongoUrl);
+  mongoose.connect(mongoUrl, {useMongoClient: true});
 
   // name: String,
   const Person = mongoose.model('person', {
