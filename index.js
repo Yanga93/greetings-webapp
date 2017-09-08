@@ -6,8 +6,10 @@ const app = express();
 
 const DatabaseService = require('./save-counter');
 
-const Models = require("./models")
-const models = Models("mongodb://localhost:27017/greet-me");
+const Models = require("./models");
+
+const mongoURL = process.env.MONGO_DB_URL || "mongodb://localhost:27017/greet-me";
+const models = Models(mongoURL);
 
 const databaseService = new DatabaseService(models);
 
@@ -24,6 +26,7 @@ app.engine('handlebars', exphbs({
 app.set('view engine', 'handlebars');
 
 //Set Static path
+
 app.use(express.static('public'));
 
 //create a route for the home page
