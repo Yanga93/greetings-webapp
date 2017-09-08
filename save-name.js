@@ -14,7 +14,7 @@ module.exports = function(models){
     models.Person.findOne({
       name: username
     }, function(err, thePerson) {
-      // console.log(thePerson);
+      
       if (!thePerson) {
 
         models.Person.create({

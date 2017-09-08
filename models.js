@@ -5,7 +5,7 @@ module.exports = function(mongoUrl) {
   })
   mongoose.connect(mongoUrl, {useMongoClient: true});
 
-  // name: String,
+  
   const Person = mongoose.model('person', {
     name: String,
     counter: Number
@@ -15,5 +15,5 @@ module.exports = function(mongoUrl) {
   return {
       Person
   };
-  // module.exports = Person;
+
 }

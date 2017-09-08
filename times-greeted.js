@@ -1,6 +1,5 @@
 // create a route for counter
 
-
 module.exports = function(models) {
 
   function timesGreeted(count, cb) {
